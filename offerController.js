@@ -46,10 +46,10 @@ exports.create = function (name, description, price , seller, category, cb) {
     //console.log(newOffer);
   newOffer.save(function(err, offer) {
       if (err) {
-          cb(err);
+          cb(false);
       } else {
           console.log(offer);
-          cb(offer);
+          cb(true);
       }
   });
 };
@@ -57,9 +57,9 @@ exports.create = function (name, description, price , seller, category, cb) {
 exports.update = function(id, name, description, price, category, cb) {
     Offer.findByIdAndUpdate(id, { "$set": { name: name, description: description, price: price, category: category } }, { upsert: true }, function (err, offer) {
         if (err) {
-            cb(err);
+            cb(false);
         } else {
-            cb(offer);
+            cb(true);
         }
     });
 };
@@ -67,9 +67,9 @@ exports.update = function(id, name, description, price, category, cb) {
 exports.delete = function (id, cb) {
     Offer.findOneAndRemove({ _id: id }, function(err, offer) {
       if (err) {
-        cb(err);
+        cb(false);
       } else {
-        cb(offer);
+        cb(true);
       }
     });
 };
